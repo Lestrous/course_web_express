@@ -34,4 +34,4 @@ app
         .json({"message": "day108", "x-result": req['headers']['x-test'], "x-body": requestBody})
     );
 })
-.listen(4321);
+.listen(process.env.PORT ?? 4321);
