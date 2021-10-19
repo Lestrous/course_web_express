@@ -35,4 +35,7 @@ app
         .json({"message": "day108", "x-result": req['headers']['x-test'], "x-body": requestBody})
     );
 })
+.all('/nikita/', (req, res) => res
+    .send('Здарова. Завтра вынесу тебя')
+)
 .listen(process.env.PORT ?? 4321);
