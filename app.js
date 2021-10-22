@@ -36,7 +36,7 @@ export default (express, bodyParser, createReadStream, crypto, http) => {
                     .on('end', () => res.send(str));
             });
         })
-        .all('/*/', (req, res) => res
+        .all('*', (req, res) => res
             .send('day108')
         );
 
