@@ -3,7 +3,8 @@ export default (express, bodyParser, createReadStream, crypto, http) => {
 
     const CORS = {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,OPTIONS,DELETE'
+        'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,OPTIONS,DELETE',
+        'Access-Control-Allow-Headers': 'Content-Type,Accept,Access-Control-Allow-Headers'
     };
 
     app
@@ -20,7 +21,7 @@ export default (express, bodyParser, createReadStream, crypto, http) => {
             res.set({'Content-Type': 'text/plain; charset=UTF-8'});
             createReadStream(fileSrc).pipe(res);
         })
-        .get('/sha1/:input/', (req, res) => {
+        .get('/sha1/:input', (req, res) => {
             const hash = crypto.createHash('sha1');
             hash.update(req.params.input);
 
