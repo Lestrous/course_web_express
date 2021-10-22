@@ -11,16 +11,16 @@ export default (express, bodyParser, createReadStream, crypto, http) => {
         .use(bodyParser.urlencoded({ extended: true }))
         .use(bodyParser.json())
 
-        .all('/login/', (req, res) => res
+        .get('/login/', (req, res) => res
             .send('day108')
         )
-        .all('/code/', (req, res) => {
+        .get('/code/', (req, res) => {
             const fileSrc = import.meta.url.substring(import.meta.url.length - 6);
 
             res.set({'Content-Type': 'text/plain; charset=UTF-8'});
             createReadStream(fileSrc).pipe(res);
         })
-        .all('/sha1/:input/', (req, res) => {
+        .get('/sha1/:input/', (req, res) => {
             const hash = crypto.createHash('sha1');
             hash.update(req.params.input);
 
