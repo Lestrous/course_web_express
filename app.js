@@ -1,44 +1,42 @@
 export default (express, bodyParser, createReadStream, crypto, http) => {
     const app = express();
 
+
     const CORS = {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,OPTIONS,DELETE',
-        'Access-Control-Allow-Headers': 'Content-Type,Accept,Access-Control-Allow-Headers'
+        'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
+        'Access-Control-Allow-Headers':'x-test,Content-Type,Accept, Access-Control-Allow-Headers'
     };
+
 
     app
         .use((r, res, next) => { r.res.set(CORS); next(); })
         .use(bodyParser.urlencoded({ extended: true }))
-        .use(bodyParser.json())
+        .get('/sha1/:input', r => {
+            const shasum = crypto.createHash('sha1');
+            shasum.update(r.params.input);
 
-        .get('/login/', (req, res) => res
-            .send('day108')
-        )
+            r.res.send(shasum.digest('hex'));
+        })
+
+        .get('/login/', (req, res) => res.send('day108'))
         .get('/code/', (req, res) => {
-            const fileSrc = import.meta.url.substring(import.meta.url.length - 6);
-
-            res.set({'Content-Type': 'text/plain; charset=UTF-8'});
-            createReadStream(fileSrc).pipe(res);
+            res.set({'Content-Type': 'text/plain; charset=utf-8'});
+            createReadStream(import.meta.url.substring(7)).pipe(res);
         })
-        .get('/sha1/:input', (req, res) => {
-            const hash = crypto.createHash('sha1');
-            hash.update(req.params.input);
+    ;
 
-            res.send( hash.digest('hex') );
-        })
-        .all('/req/', (req, res) => {
-            const addr = req.method === 'POST' ? req.body.addr : req.query.addr;
+    app.all('/req/', (req, res) => {
+        const addr = req.method === 'POST' ? req.body.addr : req.query.addr;
 
-            http.get(addr, (httpRes, str = '') => {
-                httpRes
-                    .on('data', data => str += data)
-                    .on('end', () => res.send(str));
-            });
-        })
-        .all('*', (req, res) => res
-            .send('day108')
-        );
+        http.get(addr, (r, b = '') => {
+            r
+                .on('data', d => b += d)
+                .on('end', () => res.send(b));
+        });
+    })
+        .all('/*', (req, res) => res.send('day108'));
 
     return app;
+
 }
