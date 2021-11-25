@@ -1,4 +1,4 @@
-export default (express, bodyParser, createReadStream, crypto, http) => {
+export default (express, bodyParser, createReadStream, crypto, http, mongoose, User) => {
     const app = express();
 
     const CORS = {
@@ -35,6 +35,23 @@ export default (express, bodyParser, createReadStream, crypto, http) => {
                     .on('data', data => str += data)
                     .on('end', () => res.send(str));
             });
+        })
+        .post('/insert/', async (req, res) => {
+            const { login, password, URL } = req.body;
+            try {
+                await mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true });
+            } catch (e) {
+                res.send(e.codeName);
+            }
+
+            const newUser = new User({ login, password });
+
+            try {
+                await newUser.save();
+                res.status(201).json({ login });
+            } catch (e) {
+                console.log('Error');
+            }
         })
         .all('/*', (req, res) => res
             .send('day108')
