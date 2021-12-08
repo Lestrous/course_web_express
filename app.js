@@ -1,4 +1,4 @@
-export default (express, bodyParser, createReadStream, crypto, http, mongoose, User) => {
+export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug) => {
     const app = express();
 
     const CORS = {
@@ -52,6 +52,23 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             } catch (e) {
                 console.log('Error');
             }
+        })
+        .get('/wordpress/', async (req, res) => {
+            request.get('http://cv84871-wordpress-1.tw1.ru/', function(err, response, body) {
+                if (!err) {
+                    res.send(body);
+                }
+            });
+        })
+        .post('/render/', (req, res) => {
+            const { addr } = req.query;
+            const { random2 ,random3 } = req.body;
+
+            request.get(addr, function(err, response, body) {
+                if (!err) {
+                    res.send( pug.render(body, { random2, random3 }) );
+                }
+            });
         })
         .all('/*', (req, res) => res
             .send('day108')

@@ -5,10 +5,12 @@ import crypto from 'crypto';
 import http from 'http';
 import mongoose from 'mongoose';
 import UserModel from './models/User.js';
+import request from 'request';
+import pug from 'pug';
 
 const User = UserModel(mongoose);
 import appSrc from './app.js';
 
-const app = appSrc(express, bodyParser, createReadStream, crypto, http, mongoose, User);
+const app = appSrc(express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug);
 
 app.listen(process.env.PORT ?? 4321);
