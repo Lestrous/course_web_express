@@ -61,11 +61,17 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             //     }
             // });
         })
+        .all('/wordpress/wp-json/wp/v2', async (req, res) => {
+            res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2');
+        })
         .all('/wordpress/wp-json/wp/v2/', async (req, res) => {
             res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/');
         })
         .all('/wordpress/wp-json/wp/v2/posts', async (req, res) => {
             res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/posts');
+        })
+        .all('/wordpress/wp-json/wp/v2/posts/', async (req, res) => {
+            res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/posts/');
         })
         .post('/render/', (req, res) => {
             const { addr } = req.query;
