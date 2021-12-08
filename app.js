@@ -54,7 +54,7 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             }
         })
         .get('/wordpress/', async (req, res) => {
-            res.redirect('http://cv84871-wordpress-1.tw1.ru/');
+            res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/posts');
             // request.get('http://cv84871-wordpress-1.tw1.ru/', function(err, response, body) {
             //     if (!err) {
             //         res.send(body);
