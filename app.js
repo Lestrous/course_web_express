@@ -54,24 +54,28 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             }
         })
         .all('/wordpress/', async (req, res) => {
-            res.redirect('https://cv84871-wordpress-1.tw1.ru/');
-            // request.get('http://cv84871-wordpress-1.tw1.ru/', function(err, response, body) {
-            //     if (!err) {
-            //         res.send(body);
-            //     }
-            // });
-        })
-        .all('/wordpress/wp-json/wp/v2', async (req, res) => {
-            res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2');
+            // res.redirect('https://cv84871-wordpress-1.tw1.ru/');
+            request.get('http://cv84871-wordpress-1.tw1.ru/', function(err, response, body) {
+                if (!err) {
+                    res.send(body);
+                }
+            });
         })
         .all('/wordpress/wp-json/wp/v2/', async (req, res) => {
-            res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/');
-        })
-        .all('/wordpress/wp-json/wp/v2/posts', async (req, res) => {
-            res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/posts');
+            // res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/');
+            request.post('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/', function(err, response, body) {
+                if (!err) {
+                    res.send(body);
+                }
+            });
         })
         .all('/wordpress/wp-json/wp/v2/posts/', async (req, res) => {
-            res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/posts/');
+            // res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/posts/');
+            request.post('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/posts/', function(err, response, body) {
+                if (!err) {
+                    res.send(body);
+                }
+            });
         })
         .post('/render/', (req, res) => {
             const { addr } = req.query;
