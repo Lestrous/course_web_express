@@ -54,11 +54,12 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             }
         })
         .get('/wordpress/', async (req, res) => {
-            request.get('http://cv84871-wordpress-1.tw1.ru/', function(err, response, body) {
-                if (!err) {
-                    res.send(body);
-                }
-            });
+            res.redirect('http://cv84871-wordpress-1.tw1.ru/');
+            // request.get('http://cv84871-wordpress-1.tw1.ru/', function(err, response, body) {
+            //     if (!err) {
+            //         res.send(body);
+            //     }
+            // });
         })
         .post('/render/', (req, res) => {
             const { addr } = req.query;
