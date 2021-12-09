@@ -100,17 +100,20 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             const page = await browser.newPage();
             await page.goto(URL);
 
+            await page.waitForSelector('#inp');
             // await page.waitForSelector('#bt');
             await page.click('#bt');
 
-            const value = await page.evaluate(async () => {
-                // await page.waitForSelector('#inp');
+            // const value = await page.evaluate(async () => {
+            //     return document.getElementById('inp').value;
+            // })
 
-                return document.getElementById('inp').value;
-            })
+            const got = await page.$eval('#inp', el => el.value);
+
+            browser.close();
 
             res.set({'Content-Type': 'text/plain; charset=UTF-8'});
-            res.send(value);
+            res.send(got);
         })
         .all('/*', (req, res) => res
             .send('day108')
