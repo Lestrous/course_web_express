@@ -1,4 +1,4 @@
-export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, puppeteer, chromium) => {
+export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, puppeteer) => {
     const app = express();
 
     const CORS = {
@@ -94,10 +94,7 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
         .get('/test/', async (req, res) => {
             const { URL } = req.query;
 
-
             const browser = await puppeteer.launch({
-                executablePath: '/usr/bin/chromium-browser',
-                // executablePath: chromium.path,
                 headless: true,
                 args: ['--no-sandbox', '--disable-setuid-sandbox'],
             })

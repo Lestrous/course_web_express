@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "sudo apt install cromium-browser && node index.js",
+    "start": "node index.js",
     "nodemon": "nodemon ."
   },
   "engines": {
@@ -19,7 +19,6 @@
     "body-parser": "^1.19.0",
     "busboy": "^0.3.1",
     "busboy-body-parser": "^0.3.2",
-    "chromium": "^3.0.3",
     "express": "^4.17.1",
     "mongoose": "^6.0.13",
     "pug": "^3.0.2",
