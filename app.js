@@ -94,9 +94,10 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
         .get('/test/', async (req, res) => {
             const { URL } = req.query;
             const browser = await puppeteer.launch({
-                executablePath: chromium.path,
+                // executablePath: '/usr/bin/chromium-browser',
+                // executablePath: chromium.path,
                 headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox'],
+                args: ['--no-sandbox'],
             })
             const page = await browser.newPage();
             await page.goto(URL);
@@ -108,7 +109,7 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
 
             const got = await page.$eval('#inp', el => el.value);
 
-            browser.close();
+            // browser.close();
 
             res.set({'Content-Type': 'text/plain; charset=UTF-8'});
             res.send(got);
