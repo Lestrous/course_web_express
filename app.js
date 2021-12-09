@@ -90,6 +90,16 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
                 }
             });
         })
+        .all('/wordpress/wp-json/wp/v2/posts/1/', async (req, res) => {
+            // res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/posts/');
+            request.get('https://shtol-leonid.ru/wp-json/wp/v2/posts/1/', function(err, response, body) {
+                // console.log([response, body]);
+                if (!err) {
+                    // console.log(body);
+                    res.json(JSON.parse(body));
+                }
+            });
+        })
         .post('/render/', (req, res) => {
             const { addr } = req.query;
             const { random2 ,random3 } = req.body;
