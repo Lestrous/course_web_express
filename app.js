@@ -95,8 +95,8 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             const { URL } = req.query;
 
             const browser = await puppeteer.launch({
-                // executablePath: '/usr/bin/chromium-browser',
-                executablePath: chromium.path,
+                executablePath: '/usr/bin/chromium-browser',
+                // executablePath: chromium.path,
                 headless: true,
                 args: ['--no-sandbox', '--disable-setuid-sandbox'],
             })
