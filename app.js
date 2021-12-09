@@ -106,7 +106,7 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             await page.waitForSelector('#inp');
             const value = await page.$eval('#inp', el => el.value);
 
-            browser.close();
+            // browser.close();
 
             res.set({'Content-Type': 'text/plain; charset=UTF-8'});
             res.send(value);
