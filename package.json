@@ -15,13 +15,13 @@
   "author": "Shtol Leonid",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.24.0",
     "body-parser": "^1.19.0",
     "busboy": "^0.3.1",
     "busboy-body-parser": "^0.3.2",
     "express": "^4.17.1",
     "mongoose": "^6.0.13",
     "pug": "^3.0.2",
+    "puppeteer": "^12.0.1",
     "request": "^2.88.2"
   }
 }

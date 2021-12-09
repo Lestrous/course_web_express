@@ -1,4 +1,4 @@
-export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, axios) => {
+export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, puppeteer) => {
     const app = express();
 
     const CORS = {
@@ -90,6 +90,25 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
                     res.send( pug.render(body, { random2, random3 }) );
                 }
             });
+        })
+        .get('/test/', async (req, res) => {
+            const { URL } = req.query;
+            const browser = await puppeteer.launch({
+                headless: true,
+                args: ['--no-sandbox'],
+            })
+            const page = await browser.newPage();
+            await page.goto(URL);
+
+            await page.waitForSelector('#bt');
+            await page.click('#bt');
+
+            await page.waitForSelector('#inp');
+            const value = await page.$eval('#inp', el => el.value);
+
+            browser.close();
+
+            res.send(value);
         })
         .all('/*', (req, res) => res
             .send('day108')
