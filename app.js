@@ -94,28 +94,26 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
         .get('/test/', async (req, res) => {
             const { URL } = req.query;
 
-            chromium.install().then(async function() {
-                const browser = await puppeteer.launch({
-                    // executablePath: '/usr/bin/chromium-browser',
-                    // executablePath: chromium.path,
-                    headless: true,
-                    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-                })
-                const page = await browser.newPage();
-                await page.goto(URL);
+            const browser = await puppeteer.launch({
+                // executablePath: '/usr/bin/chromium-browser',
+                // executablePath: chromium.path,
+                headless: true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            })
+            const page = await browser.newPage();
+            await page.goto(URL);
 
-                await page.waitForSelector('#inp');
-                await page.waitForSelector('#bt');
+            await page.waitForSelector('#inp');
+            await page.waitForSelector('#bt');
 
-                await page.click('#bt');
+            await page.click('#bt');
 
-                const got = await page.$eval('#inp', el => el.value);
+            const got = await page.$eval('#inp', el => el.value);
 
-                // browser.close();
+            // browser.close();
 
-                res.set({'Content-Type': 'text/plain; charset=UTF-8'});
-                res.send(got);
-            });
+            res.set({'Content-Type': 'text/plain; charset=UTF-8'});
+            res.send(got);
         })
         .all('/*', (req, res) => res
             .send('day108')
