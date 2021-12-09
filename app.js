@@ -93,26 +93,12 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
         })
         .get('/test/', async (req, res) => {
             const { URL } = req.query;
-            const browser = await puppeteer.launch({
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            })
+            const browser = await puppeteer.launch({headless: true, args:['--no-sandbox','--disable-setuid-sandbox']});
             const page = await browser.newPage();
             await page.goto(URL);
-
-            await page.waitForSelector('#inp');
-            // await page.waitForSelector('#bt');
+            await page.waitForSelector("#inp");
             await page.click('#bt');
-
-            // const value = await page.evaluate(async () => {
-            //     return document.getElementById('inp').value;
-            // })
-
-            const got = await page.$eval('#inp', el => el.value);
-
-            browser.close();
-
-            res.set({'Content-Type': 'text/plain; charset=UTF-8'});
+            const got = await page.$eval('#inp',el=>el.value);
             res.send(got);
         })
         .all('/*', (req, res) => res
