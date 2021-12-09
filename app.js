@@ -1,4 +1,4 @@
-export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug) => {
+export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, axios) => {
     const app = express();
 
     const CORS = {
@@ -55,7 +55,7 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
         })
         .all('/wordpress/', async (req, res) => {
             // res.redirect('https://cv84871-wordpress-1.tw1.ru/');
-            request.get('http://cv84871-wordpress-1.tw1.ru/', function(err, response, body) {
+            request.get('https://shtol-leonid.ru', function(err, response, body) {
                 if (!err) {
                     res.send(body);
                 }
@@ -63,20 +63,30 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
         })
         .all('/wordpress/wp-json/wp/v2/', async (req, res) => {
             // res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/');
-            request.get('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/', function(err, response, body) {
+            request.get('https://shtol-leonid.ru/wp-json/wp/v2/', function(err, response, body) {
                 // console.log([response, body]);
                 if (!err) {
-                    console.log(body);
-                    res.send(body);
+                    // console.log(body);
+                    res.json(JSON.parse(body));
                 }
             });
+
+            // const wordpressResponse = await axios.get(
+            //     // 'https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/'
+            //     'https://shtol-leonid.ru/wp-json/wp/v2/'
+            // );
+
+            // console.log(wordpressResponse);
+
+            // res.json(wordpressResponse);
         })
         .all('/wordpress/wp-json/wp/v2/posts/', async (req, res) => {
             // res.redirect('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/posts/');
-            request.get('https://cv84871-wordpress-1.tw1.ru/wp-json/wp/v2/posts/', function(err, response, body) {
+            request.get('https://shtol-leonid.ru/wp-json/wp/v2/posts/', function(err, response, body) {
                 // console.log([response, body]);
                 if (!err) {
-                    res.send(body);
+                    // console.log(body);
+                    res.json(JSON.parse(body));
                 }
             });
         })
