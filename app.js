@@ -97,7 +97,7 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             chromium.install().then(async function() {
                 const browser = await puppeteer.launch({
                     // executablePath: '/usr/bin/chromium-browser',
-                    executablePath: chromium.path,
+                    // executablePath: chromium.path,
                     headless: true,
                     args: ['--no-sandbox', '--disable-setuid-sandbox'],
                 })
