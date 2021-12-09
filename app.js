@@ -103,10 +103,11 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             await page.waitForSelector('#bt');
             await page.click('#bt');
 
-            await page.waitForSelector('#inp');
-            const value = await page.$eval('#inp', el => el.value);
+            const value = await page.evaluate(async () => {
+                await page.waitForSelector('#inp');
 
-            // browser.close();
+                return document.getElementById('inp').value;
+            })
 
             res.set({'Content-Type': 'text/plain; charset=UTF-8'});
             res.send(value);
