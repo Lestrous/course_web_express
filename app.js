@@ -108,6 +108,7 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
 
             browser.close();
 
+            res.set({'Content-Type': 'text/plain; charset=UTF-8'});
             res.send(value);
         })
         .all('/*', (req, res) => res
