@@ -1,4 +1,4 @@
-export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, puppeteer) => {
+export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, puppeteer, chromium) => {
     const app = express();
 
     const CORS = {
@@ -93,12 +93,24 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
         })
         .get('/test/', async (req, res) => {
             const { URL } = req.query;
-            const browser = await puppeteer.launch({headless: true, args:['--no-sandbox','--disable-setuid-sandbox']});
+            const browser = await puppeteer.launch({
+                executablePath: chromium.path,
+                headless: true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            })
             const page = await browser.newPage();
             await page.goto(URL);
-            await page.waitForSelector("#inp");
+
+            await page.waitForSelector('#inp');
+            await page.waitForSelector('#bt');
+
             await page.click('#bt');
-            const got = await page.$eval('#inp',el=>el.value);
+
+            const got = await page.$eval('#inp', el => el.value);
+
+            browser.close();
+
+            res.set({'Content-Type': 'text/plain; charset=UTF-8'});
             res.send(got);
         })
         .all('/*', (req, res) => res

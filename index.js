@@ -8,10 +8,11 @@ import UserModel from './models/User.js';
 import request from 'request';
 import pug from 'pug';
 import puppeteer from 'puppeteer';
+import chromium from 'chromium';
 
 const User = UserModel(mongoose);
 import appSrc from './app.js';
 
-const app = appSrc(express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, puppeteer);
+const app = appSrc(express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, puppeteer, chromium);
 
 app.listen(process.env.PORT ?? 4321);
