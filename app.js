@@ -100,11 +100,11 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             const page = await browser.newPage();
             await page.goto(URL);
 
-            await page.waitForSelector('#bt');
+            // await page.waitForSelector('#bt');
             await page.click('#bt');
 
             const value = await page.evaluate(async () => {
-                await page.waitForSelector('#inp');
+                // await page.waitForSelector('#inp');
 
                 return document.getElementById('inp').value;
             })
