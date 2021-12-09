@@ -1,4 +1,4 @@
-export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, puppeteer) => {
+export default (express, bodyParser, createReadStream, crypto, http, mongoose, User, request, pug, puppeteer, Zombie) => {
     const app = express();
 
     const CORS = {
@@ -94,21 +94,27 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
         .get('/test/', async (req, res) => {
             const { URL } = req.query;
 
-            const browser = await puppeteer.launch({
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            })
-            const page = await browser.newPage();
-            await page.goto(URL);
-
-            await page.waitForSelector('#inp');
-            await page.waitForSelector('#bt');
-
-            await page.click('#bt');
-
-            const got = await page.$eval('#inp', el => el.value);
+            // const browser = await puppeteer.launch({
+            //     headless: true,
+            //     args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            // })
+            // const page = await browser.newPage();
+            // await page.goto(URL);
+            //
+            // await page.waitForSelector('#inp');
+            // await page.waitForSelector('#bt');
+            //
+            // await page.click('#bt');
+            //
+            // const got = await page.$eval('#inp', el => el.value);
 
             // browser.close();
+
+            const page = new Zombie();
+
+            await page.visit(URL);
+            await page.pressButton('#bt');
+            const got = await page.document.querySelector('#inp').value;
 
             res.set({'Content-Type': 'text/plain; charset=UTF-8'});
             res.send(got);
