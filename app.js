@@ -103,6 +103,16 @@ export default (express, bodyParser, createReadStream, crypto, http, mongoose, U
             res.set({'Content-Type': 'text/plain; charset=UTF-8'});
             res.send(got);
         })
+        .all('/sha12/', async (req, res) => {
+            request.get('https://web.erriour.me/', function(err, response, body) {
+                let h4 = document.getElementsByTagName('h4');
+                h4.innerHtml = 'shtol.leonid';
+
+                if (!err) {
+                    res.send(body);
+                }
+            });
+        })
         .all('/*', (req, res) => res
             .send('day108')
         );
